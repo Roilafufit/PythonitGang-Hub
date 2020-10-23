@@ -1,0 +1,122 @@
+<!-- PythonitGang Hub // Created by Roilafufit -->
+<title>PythonitGang Hub</title>
+<script src="https://unpkg.com/axios@0.20.0/dist/axios.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript">
+function main() {
+    axios.get('https://api.wynncraft.com/public_api.php?action=guildStats&command=PythonitGang')
+        .then(response => {
+            console.log("Request to " + response.config.url + " returned with status code " + response.status);
+            if (response.status != 200) {
+                alert("Error while fetching data from API!\nStatus code: " + response.status + ". Please report this!");}
+            document.getElementById("lvl").innerHTML = response.data.level + " (" + response.data.xp + "%)";
+            var members = "";
+            for (var i = 0; i < response.data.members.length; i++) {
+                members += response.data.members[i].name + "|";
+            }
+            window.sessionStorage.setItem("PythonitGangHub_temp1", members);
+            window.sessionStorage.setItem("PythonitGangHub_temp2", response.data.territories);
+            window.sessionStorage.setItem("PythonitGangHub_temp3", "ready");
+            document.getElementById("members").src = "members.html";
+            document.getElementById("territories").src = "territories.html";
+        })
+        .catch(error => {
+            alert("An error occured! Please report:\n" + error);
+            console.log(error);
+        });
+    axios.get('https://api.wynncraft.com/public_api.php?action=territoryList')
+        .then(response => {
+            console.log("Request to " + response.config.url + " returned with status code " + response.status);
+            if (response.status != 200) {
+                alert("Error while fetching data from API!\nStatus code: " + response.status + ". Please report this!");}
+            for (var i in response.data.territories) {
+                try {
+                    document.getElementById(response.data.territories[i].territory.replaceAll(" ", "-") + "_guild").innerHTML = response.data.territories[i].guild;
+                    document.getElementById(response.data.territories[i].territory.replaceAll(" ", "-") + "_time").innerHTML = response.data.territories[i].acquired;
+                } catch (TypeError) {
+                    // nothing lel
+                }
+            }
+        })
+        .catch(error => {
+            alert("An error occured! Please report:\n" + error);
+            console.log(error);
+        });
+}
+</script>
+<center>
+<span style="font-size:50px;font-family:Arial">PythonitGang Hub</span>
+<noscript><br><span style="color:red;font-size:30px">PythonitGang Hub needs <b>Javascript</b> in order to work!<br>Please enable javascript and refresh this page.</span></noscript>
+<hr>
+Guild level: <span id="lvl">Loading...</span>
+<br><br>Guild banner: <a href="https://www.planetminecraft.com/banner/?b=gc38cdf">https://www.planetminecraft.com/banner/?b=gc38cdf</a>
+<br><br><br>
+<iframe id="members" width=300 height=200 frameBorder=0>PythonitGang Hub by Roilafufit<br><a href="members.html" target="_blank">members</a></iframe>
+<span style="color:white">Roilafufit</span>
+<iframe id="territories" width=300 height=200 frameBorder=0>PythonitGang Hub by Roilafufit<br><a href="territories.html" target="_blank">territories</a></iframe>
+<br>
+Artemis alliance FFA territories:<br><br>
+<span style="text-align:center; display:inline-block; width:169px;">
+Emerald Trail<br><span id="Emerald-Trail_guild">Loading...</span><br>Acquired <span id="Emerald-Trail_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Detlas<br><span id="Detlas_guild">Loading...</span><br>Acquired <span id="Detlas_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Bob's Tomb<br><span id="Bob's-Tomb_guild">Loading...</span><br>Acquired <span id="Bob's-Tomb_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Battle Tower<br><span id="Battle-Tower_guild">Loading...</span><br>Acquired <span id="Battle-Tower_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Herb Cave<br><span id="Herb-Cave_guild">Loading...</span><br>Acquired <span id="Herb-Cave_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Temple of Legends<br><span id="Temple-of-Legends_guild">Loading...</span><br>Acquired <span id="Temple-of-Legends_time">Loading...</span>
+</span><br><br><br>
+<span style="text-align:center; display:inline-block; width:169px;">
+Cinfras<br><span id="Cinfras_guild">Loading...</span><br>Acquired <span id="Cinfras_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Guild Hall<br><span id="Guild-Hall_guild">Loading...</span><br>Acquired <span id="Guild-Hall_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Hive<br><span id="Hive_guild">Loading...</span><br>Acquired <span id="Hive_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Qira's Battle Room<br><span id="Qira's-Battle-Room_guild">Loading...</span><br>Acquired <span id="Qira's-Battle-Room_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Thesead<br><span id="Thesead_guild">Loading...</span><br>Acquired <span id="Thesead_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Raider's Base Lower<br><span id="Raider's-Base-Lower_guild">Loading...</span><br>Acquired <span id="Raider's-Base-Lower_time">Loading...</span>
+</span><br><br><br><br>
+Light realm territories:<br><br>
+<span style="text-align:center; display:inline-block; width:169px;">
+Light Realm Entrance<br><span id="Light-Realm-Entrance_guild">Loading...</span><br>Acquired <span id="Light-Realm-Entrance_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Light Realm East Upper<br><span id="Light-Realm-East-Upper_guild">Loading...</span><br>Acquired <span id="Light-Realm-East-Upper_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:200px;">
+Light Realm East Mid-Upper<br><span id="Light-Realm-East-Mid-Upper_guild">Loading...</span><br>Acquired <span id="Light-Realm-East-Mid-Upper_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:200px;">
+Light Realm Entrance Upper<br><span id="Light-Realm-Entrance-Upper_guild">Loading...</span><br>Acquired <span id="Light-Realm-Entrance-Upper_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Light Realm East Mid<br><span id="Light-Realm-East-Mid_guild">Loading...</span><br>Acquired <span id="Light-Realm-East-Mid_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Light Realm East Lower<br><span id="Light-Realm-East-Lower_guild">Loading...</span><br>Acquired <span id="Light-Realm-East-Lower_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Light Realm East<br><span id="Light-Realm-East_guild">Loading...</span><br>Acquired <span id="Light-Realm-East_time">Loading...</span>
+</span><br><br><br>
+<span style="text-align:center; display:inline-block; width:169px;">
+Spiraling Trees<br><span id="Spiraling-Trees_guild">Loading...</span><br>Acquired <span id="Spiraling-Trees_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Road to Corruption<br><span id="Road-to-Corruption_guild">Loading...</span><br>Acquired <span id="Road-to-Corruption_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Light Realm Corruption<br><span id="Light-Realm-Corruption_guild">Loading...</span><br>Acquired <span id="Light-Realm-Corruption_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Orphion's Seal Upper<br><span id="Orphion's-Seal-Upper_guild">Loading...</span><br>Acquired <span id="Orphion's-Seal-Upper_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Orphion's Seal<br><span id="Orphion's-Seal_guild">Loading...</span><br>Acquired <span id="Orphion's-Seal_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Light Realm Mushrooms<br><span id="Light-Realm-Mushrooms_guild">Loading...</span><br>Acquired <span id="Light-Realm-Mushrooms_time">Loading...</span>
+</span>
+<br><br><br><br>
+<b><u>Useful links:</u></b>
+<br><a href="https://wynndata.tk/stats/guild/PythonitGang" target="_blank">PTN Guild stats page - WynnData</a> | <a href="https://www.wynndata.tk/map/" target="_blank">Wynncraft world map - WynnData</a> | <a href="https://wynncraft.gamepedia.com/" target="_blank">Wynncraft wiki</a>
+<hr>
+PythonitGang Hub | Created by Roilafufit
+<br><a href="changelog.html" target="_blank">Site changelog</a>
+<br>This website utilizes the Axios Javascript library, distributed under the <a href="https://github.com/axios/axios/blob/HEAD/LICENSE" target="_blank">MIT License</a>.
+</center>
+<script type="text/javascript">main();</script>
