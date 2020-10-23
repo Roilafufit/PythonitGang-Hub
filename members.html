@@ -1,0 +1,42 @@
+<!-- PythonitGang Hub // Created by Roilafufit -->
+<title>PythonitGang Hub - Members</title>
+<script src="https://unpkg.com/axios@0.20.0/dist/axios.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript">
+function main() {
+    axios.get('https://api.wynncraft.com/public_api.php?action=onlinePlayers')
+        .then(response => {
+            console.log("Request to " + response.config.url + " returned with status code " + response.status);
+            if (response.status != 200) {
+                alert("Error while fetching data from API!\nStatus code: " + response.status + ". Please report this!");}
+            var guildMembers = window.sessionStorage.getItem("PythonitGangHub_temp1").split("|");
+            document.getElementById("members").innerHTML = "";
+            for (var world in response.data) {
+                for (var playerIndex in response.data[world]) {
+                    var player = response.data[world][playerIndex];
+                    if (guildMembers.indexOf(player) > -1) { // if the player exists in that world
+                        document.getElementById("members").innerHTML += "<span style='color:lime;'>• </span>" + player + " - <b>" + world + "</b><br>";
+                        guildMembers[guildMembers.indexOf(player)] = "PythonitGang Hub by Roilafufit";
+                    }
+                }
+            }
+            for (var player in guildMembers) {
+                if (guildMembers[player] != "PythonitGang Hub by Roilafufit" && guildMembers[player] != "") {
+                    document.getElementById("members").innerHTML += "<span style='color:red;'>• </span>" + guildMembers[player] + "<br>";
+                }
+            }
+        })
+        .catch(error => {
+            alert("An error occured! Please report:\n" + error);
+            console.log(error);
+        });
+}
+</script>
+<center>
+<noscript><br><a style="color:red;font-size:25px">PythonitGang Hub needs <b>Javascript</b> in order to work!<br>Please enable javascript and refresh this page.</a></noscript>
+</center>
+<div style="font-family:Arial;font-size:25px"><u>Members:<br></u></div>
+<div id="members">Loading...</div>
+<script type="text/javascript">
+if (window.sessionStorage.getItem("PythonitGangHub_temp3") == "ready") {main();}
+</script>
