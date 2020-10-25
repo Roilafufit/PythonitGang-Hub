@@ -31,12 +31,24 @@ function main() {
             console.log(error);
         });
 }
+
+function uhoh() {
+    try {
+        if (window.self == window.top) {
+            window.location.href = "index.html";
+        } else {
+            document.body.innerHTML = "<span style='color:red;font-size:25px'>Please enable cookies to use the website. PythonitGang Hub only uses temporary cookies that are automatically deleted once your session ends.</span>";
+        }
+    } catch (err) {
+        // nothing lel
+    }
+}
 </script>
 <center>
-<noscript><br><a style="color:red;font-size:25px">PythonitGang Hub needs <b>Javascript</b> in order to work!<br>Please enable javascript and refresh this page.</a></noscript>
+<noscript><br><span style="color:red;font-size:25px">PythonitGang Hub needs <b>Javascript</b> in order to work!<br>Please enable javascript and refresh this page.</span></noscript>
 </center>
 <div style="font-family:Arial;font-size:25px"><u>Members:<br></u></div>
 <div id="members">Loading...</div>
 <script type="text/javascript">
-if (window.sessionStorage.getItem("PythonitGangHub_temp3") == "ready") {main();}
+if (window.sessionStorage.getItem("PythonitGangHub_temp3") == "ready") {main();} else {uhoh();}
 </script>
