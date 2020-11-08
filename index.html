@@ -1,6 +1,6 @@
 <!-- PythonitGang Hub // Created by Roilafufit -->
 <title>PythonitGang Hub</title>
-<script src="https://unpkg.com/axios@0.20.0/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios@0.21.0/dist/axios.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript">
 function calcTimeHeld(acquiredStr) {
@@ -29,9 +29,6 @@ function main() {
             }
             window.sessionStorage.setItem("PythonitGangHub_temp1", members);
             window.sessionStorage.setItem("PythonitGangHub_temp2", response.data.territories);
-            window.sessionStorage.setItem("PythonitGangHub_temp3", "ready");
-            document.getElementById("members").src = "members.html";
-            document.getElementById("territories").src = "territories.html";
         })
         .catch(error => {
             alert("An error occured! Please report:\n" + error);
@@ -66,6 +63,9 @@ function main() {
             }
             window.sessionStorage.setItem("PythonitGangHub_temp4", territoriesIframe);
             window.sessionStorage.setItem("PythonitGangHub_temp5", warsIframe);
+            window.sessionStorage.setItem("PythonitGangHub_temp3", "ready");
+            document.getElementById("members").src = "members.html";
+            document.getElementById("territories").src = "territories.html";
         })
         .catch(error => {
             alert("An error occured! Please report:\n" + error);
@@ -144,8 +144,12 @@ Light Realm Mushrooms<br><span id="Light-Realm-Mushrooms_guild">Loading...</span
 <b><u>Useful links:</u></b>
 <br><a href="https://wynndata.tk/stats/guild/PythonitGang" target="_blank">PTN Guild stats page - WynnData</a> | <a href="https://www.wynndata.tk/map/" target="_blank">Wynncraft world map - WynnData</a> | <a href="https://map.wynncraft.com" target="_blank">Official Wynncraft map - wynncraft.com</a> | <a href="https://wynncraft.gamepedia.com/" target="_blank">Wynncraft wiki</a>
 <hr>
-PythonitGang Hub | Created by Roilafufit
+<u>PythonitGang Hub | Created by Roilafufit</u>
+<br>Website stats:
+<br><img src="https://img.shields.io/tokei/lines/github/Roilafufit/PythonitGang-Hub?label=total%20lines%20of%20code"> <img src="https://img.shields.io/github/languages/code-size/Roilafufit/PythonitGang-Hub">
+<br>Wynncraft API uptime:
+<br><img src="https://img.shields.io/website?down_color=critical&down_message=down&label=Wynncraft%20legacy%20API%20-%20Online%20Players&up_color=brightgreen&up_message=up&url=https%3A%2F%2Fapi.wynncraft.com%2Fpublic_api.php%3Faction%3DonlinePlayers"> <img src="https://img.shields.io/website?down_color=critical&down_message=down&label=Wynncraft%20legacy%20API%20-%20Territory%20List&up_color=brightgreen&up_message=up&url=https%3A%2F%2Fapi.wynncraft.com%2Fpublic_api.php%3Faction%3DterritoryList"> <img src="https://img.shields.io/website?down_color=critical&down_message=down&label=Wynncraft%20legacy%20API%20-%20PythonitGang%20Guild%20Stats&up_color=brightgreen&up_message=up&url=https%3A%2F%2Fapi.wynncraft.com%2Fpublic_api.php%3Faction%3DguildStats%26command%3DPythonitGang">
 <br><a href="changelog.html" target="_blank">Site changelog</a>
-<br>This website utilizes the Axios Javascript library, distributed under the <a href="https://github.com/axios/axios/blob/HEAD/LICENSE" target="_blank">MIT License</a>.
+<br>This website utilizes the Axios Javascript library, distributed under the <a href="https://github.com/axios/axios/blob/master/LICENSE" target="_blank">MIT License</a>.
 </center>
 <script type="text/javascript">main();</script>
