@@ -23,12 +23,25 @@ function calcTimeHeld(acquiredStr) {
 }
 
 function main() {
+    try {
+        if (window.innerWidth < 661) {
+            if (window.innerWidth >= 620) {
+                document.getElementById("iframes-seperator").innerHTML = "";
+            } else {
+                document.getElementById("iframes-seperator").innerHTML = "<br>";
+            }
+        }
+    } catch (err) {
+        //nothing lel
+    }
+    
     axios.get('https://api.wynncraft.com/public_api.php?action=guildStats&command=PythonitGang')
         .then(response => {
             console.log("Request to " + response.config.url + " returned with status code " + response.status);
             if (response.status != 200) {
                 alert("Error while fetching data from API!\nStatus code: " + response.status + ". Please report this!");}
             document.getElementById("lvl").innerHTML = response.data.level + " (" + response.data.xp + "%)";
+            document.getElementById("bannertier").innerHTML = "Tier " + response.data.banner.tier;
             var members = "";
             for (var i = 0; i < response.data.members.length; i++) {
                 members += response.data.members[i].name + "|";
@@ -84,10 +97,11 @@ function main() {
 <noscript><br><span style="color:red;font-size:30px">PythonitGang Hub needs <b>Javascript</b> in order to work!<br>Please enable javascript and refresh this page.</span></noscript>
 <hr>
 Guild level: <span id="lvl">Loading...</span>
+<br><br>Guild banner: <span id="bannertier">Loading...</span>
 <br><br><a href="https://www.planetminecraft.com/banner/?b=8cCdc8458dbc5" target="_blank"><b>Guild banner</b></a> | <a href="https://www.planetminecraft.com/banner/?b=8cCdc8458c5db" target="_blank">Banner alt #1</a> | <a href="https://www.planetminecraft.com/banner/?b=dcbdudsczcygCd3" target="_blank">Banner alt #2</a> | <a href="https://www.planetminecraft.com/banner/?b=5cb5u5sczcygC53" target="_blank">Banner alt #3</a> | <a href="https://www.planetminecraft.com/banner/?b=gc38cdf" target="_blank">OG banner</a>
 <br><br><br>
 <iframe id="members" width=300 height=200 frameBorder=0>PythonitGang Hub by Roilafufit<br><a href="members.html" target="_blank">members</a></iframe>
-<span style="color:white">Roilafufit</span>
+<span style="color:white" id="iframes-seperator">Roilafufit</span>
 <iframe id="territories" width=300 height=200 frameBorder=0>PythonitGang Hub by Roilafufit<br><a href="territories.html" target="_blank">territories</a></iframe>
 <br>
 Artemis alliance FFA territories:<br><br>
