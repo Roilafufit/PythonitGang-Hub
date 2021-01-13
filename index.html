@@ -22,19 +22,24 @@ function calcTimeHeld(acquiredStr) {
     return dateStr;
 }
 
-function main() {
+function adjustWidth() {
     try {
-        if (window.innerWidth < 661) {
+        if (window.innerWidth < 686) {
             if (window.innerWidth >= 620) {
                 document.getElementById("iframes-seperator").innerHTML = "";
             } else {
                 document.getElementById("iframes-seperator").innerHTML = "<br>";
             }
+        } else {
+            document.getElementById("iframes-seperator").innerHTML = "Roilafufit";
         }
     } catch (err) {
         //nothing lel
     }
-    
+}
+
+function main() {
+    adjustWidth();
     axios.get('https://api.wynncraft.com/public_api.php?action=guildStats&command=PythonitGang')
         .then(response => {
             console.log("Request to " + response.config.url + " returned with status code " + response.status);
@@ -92,7 +97,7 @@ function main() {
         });
 }
 </script>
-<center>
+<center><body onresize="adjustWidth()">
 <span style="font-size:50px;font-family:Arial">PythonitGang Hub</span>
 <noscript><br><span style="color:red;font-size:30px">PythonitGang Hub needs <b>Javascript</b> in order to work!<br>Please enable javascript and refresh this page.</span></noscript>
 <hr>
@@ -163,6 +168,7 @@ Light Realm Mushrooms<br><span id="Light-Realm-Mushrooms_guild">Loading...</span
 <br><br><br><br>
 <b><u>Useful links:</u></b>
 <br><a href="https://wynndata.tk/stats/guild/PythonitGang" target="_blank">PTN Guild stats page - WynnData</a> | <a href="https://www.wynndata.tk/map/" target="_blank">Wynncraft world map - WynnData</a> | <a href="https://map.wynncraft.com" target="_blank">Official Wynncraft map - wynncraft.com</a> | <a href="https://wynncraft.gamepedia.com/" target="_blank">Wynncraft wiki</a>
+</body>
 <hr>
 <b>PythonitGang Hub - Created by Roilafufit</b>
 <br>
