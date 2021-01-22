@@ -10,7 +10,7 @@ function main() {
         .then(response => {
             console.log("Request to " + response.config.url + " returned with status code " + response.status);
             if (response.status != 200) {
-                alert("Error while fetching data from API!\nStatus code: " + response.status + ". Please report this!");}
+                alert("Error while fetching data from API!\nStatus code: " + response.status);}
             var guildMembers = window.sessionStorage.getItem("PythonitGangHub_temp1").split("|");
             document.getElementById("members").innerHTML = "";
             for (var world in response.data) {
