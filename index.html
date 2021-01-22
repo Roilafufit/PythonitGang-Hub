@@ -9,6 +9,8 @@
 
 <script src="https://unpkg.com/axios@0.21.0/dist/axios.min.js"></script>
 <script type="text/javascript">
+var territoryList;
+
 function calcTimeHeld(acquiredStr) {
     var acquired = acquiredStr.split(/[\s\-\:]+/);
     var acquiredDate = new Date(Date.UTC(acquired[0],(acquired[1] - 1),acquired[2],acquired[3],acquired[4],acquired[5]));
@@ -38,13 +40,31 @@ function adjustWidth() {
     }
 }
 
+function searchTerritory() {
+    document.getElementById("territorySearchResults").innerHTML = "";
+    var query = document.getElementById("territorySearchQuery").value;
+    if (query.length > 1) {
+        var re = new RegExp(query, 'i');
+        for (var i in territoryList) { // global variable territoryList contains response.data.territories
+            var t = territoryList[i];
+            if (re.test(t.territory)) {
+                document.getElementById("territorySearchResults").innerHTML += "<span style='text-align:center; display:inline-block; width:169px;'>" + t.territory + "<br>" + t.guild + "<br>Held for " + calcTimeHeld(t.acquired);
+                if (t.attacker) {
+                    document.getElementById("territorySearchResults").innerHTML += "<br><b>Being attacked by " + t.attacker + "</b>";
+                }
+                document.getElementById("territorySearchResults").innerHTML += "</span>";
+            }
+        }
+    }
+}
+
 function main() {
     adjustWidth();
     axios.get('https://api.wynncraft.com/public_api.php?action=guildStats&command=PythonitGang')
         .then(response => {
             console.log("Request to " + response.config.url + " returned with status code " + response.status);
             if (response.status != 200) {
-                alert("Error while fetching data from API!\nStatus code: " + response.status + ". Please report this!");}
+                alert("Error while fetching data from API!\nStatus code: " + response.status);}
             document.getElementById("lvl").innerHTML = response.data.level + " (" + response.data.xp + "%)";
             document.getElementById("bannertier").innerHTML = "Tier " + response.data.banner.tier;
             var members = "";
@@ -62,7 +82,8 @@ function main() {
         .then(response => {
             console.log("Request to " + response.config.url + " returned with status code " + response.status);
             if (response.status != 200) {
-                alert("Error while fetching data from API!\nStatus code: " + response.status + ". Please report this!");}
+                alert("Error while fetching data from API!\nStatus code: " + response.status);}
+            territoryList = response.data.territories;
             var territoriesIframe = " ";
             var warsIframe = " ";
             for (var i in response.data.territories) {
@@ -109,62 +130,29 @@ Guild level: <span id="lvl">Loading...</span>
 <span style="color:white" id="iframes-seperator">Roilafufit</span>
 <iframe id="territories" width=300 height=200 frameBorder=0>PythonitGang Hub by Roilafufit<br><a href="territories.html" target="_blank">territories</a></iframe>
 <br>
-Artemis alliance FFA territories:<br><br>
+Icy Descent & Twain Area:<br><br>
 <span style="text-align:center; display:inline-block; width:169px;">
-Emerald Trail<br><span id="Emerald-Trail_guild">Loading...</span><br>Held for <span id="Emerald-Trail_time">Loading...</span>
+Tower of Ascension<br><span id="Tower-of-Ascension_guild">Loading...</span><br>Held for <span id="Tower-of-Ascension_time">Loading...</span>
 </span><span style="text-align:center; display:inline-block; width:169px;">
-Detlas<br><span id="Detlas_guild">Loading...</span><br>Held for <span id="Detlas_time">Loading...</span>
+Lusuco<br><span id="Lusuco_guild">Loading...</span><br>Held for <span id="Lusuco_time">Loading...</span>
 </span><span style="text-align:center; display:inline-block; width:169px;">
-Bob's Tomb<br><span id="Bob's-Tomb_guild">Loading...</span><br>Held for <span id="Bob's-Tomb_time">Loading...</span>
+Icy Descent<br><span id="Icy-Descent_guild">Loading...</span><br>Held for <span id="Icy-Descent_time">Loading...</span>
 </span><span style="text-align:center; display:inline-block; width:169px;">
-Battle Tower<br><span id="Battle-Tower_guild">Loading...</span><br>Held for <span id="Battle-Tower_time">Loading...</span>
+Twain Lake<br><span id="Twain-Lake_guild">Loading...</span><br>Held for <span id="Twain-Lake_time">Loading...</span>
 </span><span style="text-align:center; display:inline-block; width:169px;">
-Herb Cave<br><span id="Herb-Cave_guild">Loading...</span><br>Held for <span id="Herb-Cave_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Temple of Legends<br><span id="Temple-of-Legends_guild">Loading...</span><br>Held for <span id="Temple-of-Legends_time">Loading...</span>
-</span><br><br><br>
-<span style="text-align:center; display:inline-block; width:169px;">
-Cinfras<br><span id="Cinfras_guild">Loading...</span><br>Held for <span id="Cinfras_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Guild Hall<br><span id="Guild-Hall_guild">Loading...</span><br>Held for <span id="Guild-Hall_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Hive<br><span id="Hive_guild">Loading...</span><br>Held for <span id="Hive_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Qira's Battle Room<br><span id="Qira's-Battle-Room_guild">Loading...</span><br>Held for <span id="Qira's-Battle-Room_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Thesead<br><span id="Thesead_guild">Loading...</span><br>Held for <span id="Thesead_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Raider's Base Lower<br><span id="Raider's-Base-Lower_guild">Loading...</span><br>Held for <span id="Raider's-Base-Lower_time">Loading...</span>
-</span><br><br><br><br>
-Light realm territories:<br><br>
-<span style="text-align:center; display:inline-block; width:169px;">
-Light Realm Entrance<br><span id="Light-Realm-Entrance_guild">Loading...</span><br>Held for <span id="Light-Realm-Entrance_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Light Realm East Upper<br><span id="Light-Realm-East-Upper_guild">Loading...</span><br>Held for <span id="Light-Realm-East-Upper_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:200px;">
-Light Realm East Mid-Upper<br><span id="Light-Realm-East-Mid-Upper_guild">Loading...</span><br>Held for <span id="Light-Realm-East-Mid-Upper_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:200px;">
-Light Realm Entrance Upper<br><span id="Light-Realm-Entrance-Upper_guild">Loading...</span><br>Held for <span id="Light-Realm-Entrance-Upper_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Light Realm East Mid<br><span id="Light-Realm-East-Mid_guild">Loading...</span><br>Held for <span id="Light-Realm-East-Mid_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Light Realm East Lower<br><span id="Light-Realm-East-Lower_guild">Loading...</span><br>Held for <span id="Light-Realm-East-Lower_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Light Realm East<br><span id="Light-Realm-East_guild">Loading...</span><br>Held for <span id="Light-Realm-East_time">Loading...</span>
-</span><br><br><br>
-<span style="text-align:center; display:inline-block; width:169px;">
-Spiraling Trees<br><span id="Spiraling-Trees_guild">Loading...</span><br>Held for <span id="Spiraling-Trees_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Road to Corruption<br><span id="Road-to-Corruption_guild">Loading...</span><br>Held for <span id="Road-to-Corruption_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Light Realm Corruption<br><span id="Light-Realm-Corruption_guild">Loading...</span><br>Held for <span id="Light-Realm-Corruption_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Orphion's Seal Upper<br><span id="Orphion's-Seal-Upper_guild">Loading...</span><br>Held for <span id="Orphion's-Seal-Upper_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Orphion's Seal<br><span id="Orphion's-Seal_guild">Loading...</span><br>Held for <span id="Orphion's-Seal_time">Loading...</span>
-</span><span style="text-align:center; display:inline-block; width:169px;">
-Light Realm Mushrooms<br><span id="Light-Realm-Mushrooms_guild">Loading...</span><br>Held for <span id="Light-Realm-Mushrooms_time">Loading...</span>
+House of Twain<br><span id="Twain-Mansion_guild">Loading...</span><br>Held for <span id="Twain-Mansion_time">Loading...</span>
 </span>
+<br><br>
+POTATO CITY<br><br>
+<span style="text-align:center; display:inline-block; width:169px;">
+Bremminglar<br><span id="Bremminglar_guild">Loading...</span><br>Held for <span id="Bremminglar_time">Loading...</span>
+</span><span style="text-align:center; display:inline-block; width:169px;">
+Lion Lair<br><span id="Lion-Lair_guild">Loading...</span><br>Held for <span id="Lion-Lair_time">Loading...</span>
+</span>
+<br><br><br><br>
+Territory Search:
+<br><input type="text" placeholder="Territory name" id="territorySearchQuery"><button onclick="searchTerritory()">Seacrh</button>
+<br><br><span id="territorySearchResults"></span>
 <br><br><br><br>
 <b><u>Useful links:</u></b>
 <br><a href="https://wynndata.tk/stats/guild/PythonitGang" target="_blank">PTN Guild stats page - WynnData</a> | <a href="https://www.wynndata.tk/map/" target="_blank">Wynncraft world map - WynnData</a> | <a href="https://map.wynncraft.com" target="_blank">Official Wynncraft map - wynncraft.com</a> | <a href="https://wynncraft.gamepedia.com/" target="_blank">Wynncraft wiki</a>
