@@ -2,7 +2,7 @@
 <!-- github.com/Roilafufit/PythonitGang-Hub -->
 <title>PythonitGang Hub - Members</title>
 <link rel="icon" href="pythonitgang-favicon.ico">
-<script src="https://unpkg.com/axios@0.21.0/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios@0.21.1/dist/axios.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript">
 function main() {
@@ -11,7 +11,7 @@ function main() {
             console.log("Request to " + response.config.url + " returned with status code " + response.status);
             if (response.status != 200) {
                 alert("Error while fetching data from API!\nStatus code: " + response.status);}
-            var guildMembers = window.sessionStorage.getItem("PythonitGangHub_temp1").split("|");
+            var guildMembers = window.sessionStorage.getItem("PythonitGangHub_temp1").split("+");
             document.getElementById("members").innerHTML = "";
             for (var world in response.data) {
                 for (var playerIndex in response.data[world]) {
