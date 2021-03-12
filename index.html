@@ -10,7 +10,7 @@
 <script src="https://unpkg.com/axios@0.21.1/dist/axios.min.js"></script>
 <script type="text/javascript">
 var territoryList;
-var params = new URLSearchParams(location.search);
+var params = new URLSearchParams(encodeURI(location.search.replace(/[^\w\?\=\+\&]/g, "")));
 
 
 function calcTimeHeld(acquiredStr) {
@@ -74,7 +74,13 @@ function main() {
                 members += response.data.members[i].name + "+";
             }
             if (params.get("additionalMembers")) {
-                members += params.get("additionalMembers").replace(/\s/g, "+");
+                additionalMembers = params.get("additionalMembers").split(/\s/g);
+                for (var i = 0; i < additionalMembers.length; i++) {
+                    if (additionalMembers[i].length > 16 || additionalMembers[i].length < 1) {
+                        additionalMembers[i] = "+";
+                    }
+                }
+                members += additionalMembers.join("+");
             }
             window.sessionStorage.setItem("PythonitGangHub_temp1", members);
             window.sessionStorage.setItem("PythonitGangHub_temp2", response.data.territories);
