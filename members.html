@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <!-- PythonitGang Hub // Created by Roilafufit -->
 <!-- github.com/Roilafufit/PythonitGang-Hub -->
 <title>PythonitGang Hub - Members</title>
@@ -17,14 +18,14 @@ function main() {
                 for (var playerIndex in response.data[world]) {
                     var player = response.data[world][playerIndex];
                     if (guildMembers.indexOf(player) > -1) { // if the player exists in that world
-                        document.getElementById("members").innerHTML += "<span style='color:lime;'>&#8226; </span><a onclick='window.open(\"https://www.wynndata.tk/stats/player/" + player + "\")'>" + player + "</a> - <b>" + world + "</b><br>";
+                        document.getElementById("members").innerHTML += "<span style='color:lime;'>&#8226; </span><a onclick='window.open(\"https://www.wynndata.tk/stats/player/" + player + "\", \"_blank\", \"noopener\")'>" + player + "</a> - <b>" + world + "</b><br>";
                         guildMembers[guildMembers.indexOf(player)] = "PythonitGang Hub by Roilafufit";
                     }
                 }
             }
             for (var player in guildMembers) {
                 if (guildMembers[player] != "PythonitGang Hub by Roilafufit" && guildMembers[player] != "") {
-                    document.getElementById("members").innerHTML += "<span style='color:red;'>&#8226; </span><a onclick='window.open(\"https://www.wynndata.tk/stats/player/" + guildMembers[player] + "\")'>" + guildMembers[player] + "</a><br>";
+                    document.getElementById("members").innerHTML += "<span style='color:red;'>&#8226; </span><a onclick='window.open(\"https://www.wynndata.tk/stats/player/" + guildMembers[player] + "\", \"_blank\", \"noopener\")'>" + guildMembers[player] + "</a><br>";
                 }
             }
         })
