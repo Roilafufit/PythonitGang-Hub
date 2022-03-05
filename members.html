@@ -3,10 +3,14 @@
 <!-- github.com/Roilafufit/PythonitGang-Hub -->
 <title>PythonitGang Hub - Members</title>
 <link rel="icon" href="pythonitgang-favicon.ico">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-icons/font/bootstrap-icons.css">
 <script src="https://unpkg.com/axios@^0/dist/axios.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript">
 function main() {
+    document.getElementById("refresh_button").disabled = true;
+    var spinning_anim = document.getElementById("refresh_button").animate([{transform: "rotate(360deg)"}], {duration: 4000, iterations: Infinity});
+    document.getElementById("members").innerHTML = "Loading...";
     axios.get('https://api.wynncraft.com/public_api.php?action=onlinePlayers')
         .then(response => {
             console.log("Request to " + response.config.url + " returned with status code " + response.status);
@@ -28,6 +32,8 @@ function main() {
                     document.getElementById("members").innerHTML += "<span style='color:red;'>&#8226; </span><a onclick='window.open(\"https://www.wynndata.tk/stats/player/" + guildMembers[player] + "\", \"_blank\", \"noopener\")'>" + guildMembers[player] + "</a><br>";
                 }
             }
+            spinning_anim.cancel();
+            document.getElementById("refresh_button").disabled = false;
         })
         .catch(error => {
             alert("An error occured! Please report:\n" + error);
@@ -50,7 +56,7 @@ function uhoh() {
 <center>
 <noscript><br><span style="color:red;font-size:25px">PythonitGang Hub needs <b>Javascript</b> in order to work!<br>Please enable javascript and refresh this page.</span></noscript>
 </center>
-<div style="font-family:Arial;font-size:25px"><u>Members:<br></u></div>
+<div style="font-family:Arial;"><u style="font-size:25px;">Members:</u> <span style="display: inline-block;" id="refresh_button" class="bi bi-arrow-repeat" onclick="main()"></span><br></div>
 <div id="members">Loading...</div>
 <script type="text/javascript">
 if (window.sessionStorage.getItem("PythonitGangHub_temp3") == "ready") {main();} else {uhoh();}
