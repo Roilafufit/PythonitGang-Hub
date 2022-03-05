@@ -3,12 +3,19 @@
 <!-- github.com/Roilafufit/PythonitGang-Hub -->
 <title>PythonitGang Hub - Territories</title>
 <link rel="icon" href="pythonitgang-favicon.ico">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-icons/font/bootstrap-icons.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script type="text/javascript">
 function main() {
     document.getElementById("territoryNum").innerHTML = window.sessionStorage.getItem("PythonitGangHub_temp2");
     document.getElementById("territories").innerHTML = window.sessionStorage.getItem("PythonitGangHub_temp4");
     document.getElementById("wars").innerHTML = window.sessionStorage.getItem("PythonitGangHub_temp5");
+}
+
+function refresh() {
+    document.getElementById("refresh_button").disabled = true;
+    var spinning_anim = document.getElementById("refresh_button").animate([{transform: "rotate(360deg)"}], {duration: 4000, iterations: Infinity});
+    window.sessionStorage.setItem("PythonitGangHub_temp6", "refresh");
 }
 
 function uhoh() {
@@ -26,7 +33,7 @@ function uhoh() {
 <center>
 <noscript><br><span style="color:red;font-size:25px">PythonitGang Hub needs <b>Javascript</b> in order to work!<br>Please enable javascript and refresh this page.</span><br></noscript>
 </center>
-<div style="font-family:Arial;font-size:25px"><u>Territories:<br></u></div>
+<div style="font-family:Arial;"><u style="font-size:25px;">Territories:</u> <span style="display: inline-block;" id="refresh_button" class="bi bi-arrow-repeat" onclick="refresh()"></span><br></div>
 <div id="territories">
 Loading...
 </div>
@@ -34,5 +41,5 @@ Loading...
 <br>---<br>
 <i><span id="territoryNum">Loading...</span> territories total</i>
 <script type="text/javascript">
-if (window.sessionStorage.getItem("PythonitGangHub_temp3") == "ready") {main();} else {uhoh();}
+if (window.sessionStorage.getItem("PythonitGangHub_temp6") == "ready") {main();} else {uhoh();}
 </script>
