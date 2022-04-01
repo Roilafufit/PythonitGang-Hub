@@ -15,6 +15,8 @@ function main() {
 function refresh() {
     document.getElementById("refresh_button").disabled = true;
     var spinning_anim = document.getElementById("refresh_button").animate([{transform: "rotate(360deg)"}], {duration: 4000, iterations: Infinity});
+    document.getElementById("territories").innerHTML = "Loading...";
+    document.getElementById("wars").innerHTML = "";
     window.sessionStorage.setItem("PythonitGangHub_temp6", "refresh");
 }
 
