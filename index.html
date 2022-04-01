@@ -61,6 +61,34 @@ function searchTerritory() {
     }
 }
 
+function findNobody() {
+    document.getElementById("nobodyFindings").innerHTML = "";
+    var src_t = document.getElementById("nf_srcTerritory").value;
+    var nf_amount = Number.parseInt(document.getElementById("nf_amount").value);
+    var nobody_territories = [];
+    if (document.querySelectorAll("option[value='" + src_t + "']").length >= 1) { // validate user input
+        for (var i in territoryList) { // global variable territoryList contains response.data.territories
+            var t = territoryList[i];
+            if (src_t == t.territory) {
+                var src_x = t.location.startX;
+                var src_y = t.location.startY;
+            }
+            if (t.guild == null || t.guild.toLowerCase() == "nobody") {
+                nobody_territories.push(t);
+            }
+        }
+        for (var t of nobody_territories) {
+            t.distanceDelta = Math.sqrt(Math.pow((src_x - t.location.startX), 2) + Math.pow((src_y - t.location.startY), 2));
+        }
+        nobody_territories.sort(function (a, b) {
+            return a.distanceDelta - b.distanceDelta;
+        });
+        for (var i = 0; i < Math.min(nobody_territories.length, nf_amount); i++) {
+            document.getElementById("nobodyFindings").innerHTML += nobody_territories[i].territory + "<br>";
+        }
+    }
+}
+
 function getTerritories() {
     axios.get('https://api.wynncraft.com/public_api.php?action=territoryList')
         .then(response => {
@@ -70,8 +98,11 @@ function getTerritories() {
             territoryList = response.data.territories;
             var territoriesIframe = " ";
             var warsIframe = " ";
+            document.getElementById("nf_srcTerritory").disabled = true;
+            document.getElementById("nf_datalist").innerHTML = "";
             for (var i in response.data.territories) {
                 var t = response.data.territories[i];
+                document.getElementById("nf_datalist").innerHTML += "<option value='" + t.territory + "'></option>";
                 if (t.guild == "PythonitGang") {
                     territoriesIframe += "<b>" + t.territory + "</b><br>Held for " + calcTimeHeld(t.acquired) + "<br>";
                     if (t.attacker) {
@@ -91,6 +122,8 @@ function getTerritories() {
                 }
             }
             searchTerritory(); // if there is text in the search box, the displayed search results will be refreshed
+            findNobody(); // same with nobody finder
+            document.getElementById("nf_srcTerritory").disabled = false;
             window.sessionStorage.setItem("PythonitGangHub_temp4", territoriesIframe);
             window.sessionStorage.setItem("PythonitGangHub_temp5", warsIframe);
             window.sessionStorage.setItem("PythonitGangHub_temp6", "ready");
@@ -135,7 +168,6 @@ function main() {
         });
     getTerritories();
     window.addEventListener("storage", () => {
-        console.log(sessionStorage.getItem("PythonitGangHub_temp6"));
         if (window.sessionStorage.getItem("PythonitGangHub_temp6") == "refresh") {
             getTerritories();
         }
@@ -173,9 +205,17 @@ Bremminglar<br><span id="Bremminglar_guild">Loading...</span><br>Held for <span 
 </span><span style="text-align:center; display:inline-block; width:169px;">
 Lion Lair<br><span id="Lion-Lair_guild">Loading...</span><br>Held for <span id="Lion-Lair_time">Loading...</span>
 </span>
-<br><br><br><br>
+<br><br><br>
+Nobody Finder
+<br><input list="nf_datalist" id="nf_srcTerritory" placeholder="Source territory">
+<datalist id="nf_datalist"></datalist>
+<input type="number" id="nf_amount" value="10" style="max-width: 50px;" title="Amount of territories to display">
+<button onclick="findNobody()">Find</button>
+<br><br><span id="nobodyFindings"></span>
+<br><br><br>
 Territory Search:
-<br><input type="text" placeholder="Territory name" id="territorySearchQuery"><button onclick="searchTerritory()">Search</button>
+<br><input type="text" placeholder="Territory name" id="territorySearchQuery">
+<button onclick="searchTerritory()">Search</button>
 <br><br><span id="territorySearchResults"></span>
 <br><br><br><br>
 <b><u>Useful links:</u></b>
