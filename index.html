@@ -66,7 +66,7 @@ function findNobody() {
     var src_t = document.getElementById("nf_srcTerritory").value;
     var nf_amount = Number.parseInt(document.getElementById("nf_amount").value);
     var nobody_territories = [];
-    if (document.querySelectorAll("option[value='" + src_t + "']").length >= 1) { // validate user input
+    if (document.querySelectorAll("option[value=\"" + src_t + "\"]").length >= 1) { // validate user input
         for (var i in territoryList) { // global variable territoryList contains response.data.territories
             var t = territoryList[i];
             if (src_t == t.territory) {
@@ -102,7 +102,7 @@ function getTerritories() {
             document.getElementById("nf_datalist").innerHTML = "";
             for (var i in response.data.territories) {
                 var t = response.data.territories[i];
-                document.getElementById("nf_datalist").innerHTML += "<option value='" + t.territory + "'></option>";
+                document.getElementById("nf_datalist").innerHTML += "<option value=\"" + t.territory + "\"></option>";
                 if (t.guild == "PythonitGang") {
                     territoriesIframe += "<b>" + t.territory + "</b><br>Held for " + calcTimeHeld(t.acquired) + "<br>";
                     if (t.attacker) {
