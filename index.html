@@ -51,11 +51,7 @@ function searchTerritory() {
         for (var i in territoryList) { // global variable territoryList contains response.data.territories
             var t = territoryList[i];
             if (re.test(t.territory)) {
-                document.getElementById("territorySearchResults").innerHTML += "<span style='text-align:center; display:inline-block; width:169px;'>" + t.territory + "<br>" + t.guild + "<br>Held for " + calcTimeHeld(t.acquired);
-                if (t.attacker) {
-                    document.getElementById("territorySearchResults").innerHTML += "<br><b>Being attacked by " + t.attacker + "</b>";
-                }
-                document.getElementById("territorySearchResults").innerHTML += "</span>";
+                document.getElementById("territorySearchResults").innerHTML += "<span style='text-align:center; display:inline-block; width:169px;'>" + t.territory + "<br>" + t.guild + "<br>Held for " + calcTimeHeld(t.acquired) + "</span>";
             }
         }
     }
@@ -105,18 +101,10 @@ function getTerritories() {
                 document.getElementById("nf_datalist").innerHTML += "<option value=\"" + t.territory + "\"></option>";
                 if (t.guild == "PythonitGang") {
                     territoriesIframe += "<b>" + t.territory + "</b><br>Held for " + calcTimeHeld(t.acquired) + "<br>";
-                    if (t.attacker) {
-                        territoriesIframe += "<span style='color:red'>Territory is being attacked by " + t.attacker + "!</span></b><br>";
-                    }
-                } else if (t.attacker == "PythonitGang") {
-                    warsIframe += "<span style='color:blue'>Attacking " + t.territory + "!</span><br>Currently held by " + t.guild;
                 }
                 try {
                     document.getElementById(t.territory.replaceAll(" ", "-") + "_guild").innerHTML = t.guild;
                     document.getElementById(t.territory.replaceAll(" ", "-") + "_time").innerHTML = calcTimeHeld(t.acquired);
-                    if (t.attacker) {
-                        document.getElementById(t.territory.replaceAll(" ", "-") + "_time").innerHTML += "<br><b>Being attacked by " + t.attacker + "</b>";
-                    }
                 } catch (TypeError) {
                     // nothing lel
                 }
@@ -174,7 +162,7 @@ function main() {
     });
 }
 </script>
-<center><body onresize="adjustWidth()">
+<body onresize="adjustWidth()" style="text-align:center;">
 <span style="font-size:50px;font-family:Arial">PythonitGang Hub</span>
 <noscript><br><span style="color:red;font-size:30px">PythonitGang Hub needs <b>Javascript</b> in order to work!<br>Please enable javascript and refresh this page.</span></noscript>
 <hr>
@@ -241,7 +229,6 @@ Territory Search:
 <br><br><br><br>
 <b><u>Useful links:</u></b>
 <br><a href="https://wynndata.tk/stats/guild/PythonitGang" target="_blank" rel="noopener">PTN Guild stats page - WynnData</a> | <a href="https://www.wynndata.tk/map/" target="_blank" rel="noopener">Wynncraft world map - WynnData</a> | <a href="https://map.wynncraft.com" target="_blank" rel="noopener">Official Wynncraft map - wynncraft.com</a> | <a href="https://wynncraft.gamepedia.com/" target="_blank" rel="noopener">Wynncraft wiki</a>
-</body>
 <hr>
 <b>PythonitGang Hub - Created by Roilafufit</b>
 <br>
@@ -251,5 +238,5 @@ Territory Search:
 <br><br>Credits:
 <br>This website utilizes the Axios Javascript library, licensed under the <a href="https://github.com/axios/axios/blob/master/LICENSE" target="_blank" rel="noopener">MIT License</a>.
 <br>This website uses the Bootstrap Icons library, licensed under the <a href="https://github.com/twbs/icons/blob/main/LICENSE.md" target="_blank" rel="noopener">MIT License</a>.
-</center>
 <script type="text/javascript">main();</script>
+</body>
