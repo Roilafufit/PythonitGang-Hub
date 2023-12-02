@@ -166,6 +166,10 @@ function main() {
 <span style="font-size:50px;font-family:Arial">PythonitGang Hub</span>
 <noscript><br><span style="color:red;font-size:30px">PythonitGang Hub needs <b>Javascript</b> in order to work!<br>Please enable javascript and refresh this page.</span></noscript>
 <hr>
+
+<span style="font-size:20px;">Due to the deprecation of the V1 & V2 Wynncraft APIs, PythonitGang Hub is no longer functional.<br>The website is not migrating to the V3 API for now as it appears to be still in development.<br></span>
+<span id="main-website-content" hidden>
+
 Guild level: <span id="lvl">Loading...</span>
 <br><br>Guild banner: <span id="bannertier">Loading...</span>
 <br><br><a href="https://www.planetminecraft.com/banner/?b=8cCdc8458dbc5" target="_blank" rel="noopener"><b>Guild banner</b></a> | <a href="https://www.planetminecraft.com/banner/?b=8cCdc8458c5db" target="_blank" rel="noopener">Banner alt #1</a> | <a href="https://www.planetminecraft.com/banner/?b=dcbdudsczcygCd3" target="_blank" rel="noopener">Banner alt #2</a> | <a href="https://www.planetminecraft.com/banner/?b=5cb5u5sczcygC53" target="_blank" rel="noopener">Banner alt #3</a> | <a href="https://www.planetminecraft.com/banner/?b=gc38cdf" target="_blank" rel="noopener">OG banner</a>
@@ -226,6 +230,9 @@ Territory Search:
 <br><input type="text" placeholder="Territory name" id="territorySearchQuery">
 <button onclick="searchTerritory()">Search</button>
 <br><br><span id="territorySearchResults"></span>
+
+</span>
+
 <br><br><br><br>
 <b><u>Useful links:</u></b>
 <br><a href="https://wynndata.tk/stats/guild/PythonitGang" target="_blank" rel="noopener">PTN Guild stats page - WynnData</a> | <a href="https://www.wynndata.tk/map/" target="_blank" rel="noopener">Wynncraft world map - WynnData</a> | <a href="https://map.wynncraft.com" target="_blank" rel="noopener">Official Wynncraft map - wynncraft.com</a> | <a href="https://wynncraft.gamepedia.com/" target="_blank" rel="noopener">Wynncraft wiki</a>
@@ -238,5 +245,10 @@ Territory Search:
 <br><br>Credits:
 <br>This website utilizes the Axios Javascript library, licensed under the <a href="https://github.com/axios/axios/blob/master/LICENSE" target="_blank" rel="noopener">MIT License</a>.
 <br>This website uses the Bootstrap Icons library, licensed under the <a href="https://github.com/twbs/icons/blob/main/LICENSE.md" target="_blank" rel="noopener">MIT License</a>.
-<script type="text/javascript">main();</script>
+<script type="text/javascript">
+if (params.has("ignoreDeprecation")) {
+    document.getElementById("main-website-content").hidden = false;
+    main();
+}
+</script>
 </body>
